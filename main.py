@@ -18,7 +18,7 @@ def exp_date():
     return str(out)
 
 def main():
-    output = {"Number": None, "type": None, "cvv": None, "pin": None, "IIN": None, "PAN": None, "exp-date": None}
+    output = {"Number": None, "Type": None, "CVV": None, "PIN": None, "IIN": None, "Account-Number": None, "Exp-Date": None}
     types = {"1":"v", "2":"m"}
     types_full = {"1":"Visa", "2":"MasterCard"}
     optlist = "1) Visa\n2) MasterCard"
@@ -31,22 +31,22 @@ def main():
     
     output["Number"] = gen.GenerateCardNumber().gen_val(types[user_input])
     output["IIN"] = ""
-    output["PAN"] = ""
+    output["Account-Number"] = ""
 
     # The first 6 digits are Issuer Identification Number
     # The last digit is the check digit
     # The numbers that are between the first 6 digits and the last digit
-    # is the Personal Account Number  
+    # is the Account Number  
     for i in range(len(output["Number"])-1):
         if i > 5:
-            output["PAN"] += output["Number"][i]
+            output["Account-Number"] += output["Number"][i]
         else:
             output["IIN"] += output["Number"][i]
 
-    output["type"] = types_full[user_input]
-    output["cvv"] = "".join([str(random.randint(0, 9)) for i in range(0, 3)])
-    output["pin"] = "".join(str(random.randint(0, 4)) for i in range(0, 4))
-    output["exp-date"] = exp_date().split(" ")[0]
+    output["Type"] = types_full[user_input]
+    output["CVV"] = "".join([str(random.randint(0, 9)) for i in range(0, 3)])
+    output["PIN"] = "".join(str(random.randint(0, 4)) for i in range(0, 4))
+    output["Exp-Date"] = exp_date().split(" ")[0]
     print("\n")
 
     for item in output:
